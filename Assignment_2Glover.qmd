@@ -91,3 +91,101 @@ h <- c(NA, -5, 2, 4, 4, NA, 11)
 pos_na(g,h)
 
 ```
+
+```{r}
+
+
+
+
+
+```
+
+```{r}
+
+
+
+
+
+```
+
+```{r}
+
+
+
+
+
+
+```
+
+## Question 3
+
+```{r}
+
+V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
+
+
+names(V) <- c("b", "l", "d", "e", "be")
+
+V[c("b", "d", "be")]
+
+```
+
+## Subsetting with for loop
+
+```{r}
+
+#Subsetting for loop
+
+V[c("b", "b", "b")]
+
+
+
+
+
+```
+
+## Subsetting with positive indices
+
+```{r}
+
+V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
+
+
+names(V) <- c(1, 2, 3, 4, 5)
+
+V[c(1, 2, 3, 4, 5)]
+
+
+
+
+
+
+```
+
+## Subsetting using negative indices 
+
+```{r}
+
+
+V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
+
+
+names(V) <- c(1, 2, 3, 4, 5)
+
+
+V[-c(1,2,3,4,5)]
+
+print(V)
+
+```
+
+## Subsetting using logical indexing
+
+```{r}
+
+
+
+
+
+
+```
