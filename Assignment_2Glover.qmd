@@ -108,6 +108,10 @@ pos_na(g,h)
 
 ```
 
+## Question 2 
+
+Load the `wmata_ridership`{style="font-family: Monaco, Menlo, Consolas, \"Courier New\", monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(242, 244, 244); border-color: rgb(232, 234, 236); padding: 0.125rem 0.25rem; color: rgb(199, 31, 35); font-variant-ligatures: normal; white-space-collapse: collapse;"} data frame into R from [https://dcgerard.github.io/stat_412_612/data/wmata_ridership.csvLinks to an external site.](https://dcgerard.github.io/stat_412_612/data/wmata_ridership.csv){.uri .external target="_blank" rel="noreferrer noopener" style="color: rgb(14, 104, 179); font-family: LatoWeb, \"Lato Extended\", Lato, \"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; white-space-collapse: collapse;"}. For each month, calculate the proportion of rides made on a given day of the month. Then make box plots of ridership proportions by day of the week. But exclude any days from 2004 and 2005.
+
 ```{r}
 
 
@@ -153,7 +157,7 @@ V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
 
 names(V) <- c(1, 2, 3, 4, 5)
 
-V[c(1, 2, 3, 4, 5)]
+V[-c(2,4)]
 
 
 
@@ -162,7 +166,7 @@ V[c(1, 2, 3, 4, 5)]
 
 ```
 
-## Subsetting using negative indices 
+## Subsetting using negative indices
 
 ```{r}
 
@@ -170,10 +174,7 @@ V[c(1, 2, 3, 4, 5)]
 V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
 
 
-names(V) <- c(1, 2, 3, 4, 5)
-
-
-V[-c(1,2,3,4,5)]
+names(V) <- c()
 
 print(V)
 
@@ -183,6 +184,58 @@ print(V)
 
 ```{r}
 
+V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
+
+V[c(TRUE, FALSE, TRUE, FALSE, TRUE)]
+
+
+
+
+```
+
+## Question 4
+
+## Parse
+
+```{r}
+records <- c(
+  "Steve McQueen | 2020-01-15 | HR",
+  "B. Smith | 15/02/2021 | FIN",
+  "Carlos M | March 3, 2019 | IT",
+  "D. Lee | 2018/07/30 | HR",
+  "Alain Delon | 04-12-2020 | MKT"
+)
+records
+
+
+
+
+```
+
+## Parsing each record
+
+```{r}
+
+employ_rec <- data.frame(
+  Name = c("Steve McQueen", "B.Smith", "Carlos M", "D.Lee", "Alain Delon"),
+  Hire Date = c(2020-01-15, 15/02/2021, March 3, 2019, 2018/07/30, 04-12-2020),
+  Dept= c("HR", "FIN", "IT", "HR", "MKT")
+)
+
+name <- 
+
+
+```
+
+```{r}
+
+
+
+
+
+```
+
+```{r}
 
 
 
