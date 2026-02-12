@@ -126,6 +126,48 @@ month("2004-01-01", label = TRUE)
 wday("2004-01-01", label = TRUE)
 ```
 
+```{r}
+
+wmata_data|>
+  mutate(wmata_data, Year = year(Date),
+                     Month = month(Date),
+                     Wday = wday(Date, label = TRUE)) -> wmata_data2
+
+wmata_data2
+
+
+
+```
+
+```{r}
+wmata_data2|>
+  filter(!(Year %in% c(2004,2005))) -> wmata_data2
+
+#Updated
+wmata_data2
+
+```
+
+```{r}
+
+wmata_data2|>
+  group_by(Month,Wday)|>
+  mutate(Proportion = Total/sum(Total))|>
+  ungroup()-> wmata_data2
+
+wmata_data2
+
+```
+
+```{r}
+
+ggplot(wmata_data2, aes(x = Wday, y = Proportion)) +
+  geom_boxplot()
+
+
+
+```
+
 ## Question 3
 
 ```{r}
