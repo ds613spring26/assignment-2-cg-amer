@@ -307,6 +307,8 @@ mdy("March 3, 2019")
 ymd("2018/07/30")
 
 mdy("4-12-2020")
+
+
 ```
 
 ## Ordered factors
@@ -322,6 +324,28 @@ new_dept_levels <- factor(x1, levels = dept_levels)
 new_dept_levels
 
 ```
+
+## Construct a data frame
+
+```{r}
+
+dates <- c ("2020-01-15","2021-02-15","2019-03-03","2018-07-30","2020-04-12")
+
+dept <- c("FIN","HR","IT","MKT")
+
+employee_name <- c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delon")
+
+
+clean_df <- data.frame(
+  dates = c("2020-01-15","2021-02-15","2019-03-03","2018-07-30","2020-04-12"), 
+  dept = c("HR","FIN","HR","IT","MKT"), 
+  employee_name = c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delon")
+)
+
+clean_df
+```
+
+## Add a new variable: years worked
 
 ```{r}
 
