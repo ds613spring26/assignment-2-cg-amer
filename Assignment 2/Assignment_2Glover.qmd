@@ -308,20 +308,36 @@ ymd("2018/07/30")
 
 mdy("4-12-2020")
 
+hire_date <- c("2020-01-15", "2021-02-15", "2019-03-03","2018-07-30", "2020-04-12")
 
+hire_date
 ```
 
 ## Ordered factors
 
 ```{r}
 
-x1 <- c("HR", "FIN", "IT", "MKT")
+x1 <- c("HR", "FIN", "IT", "HR", "MKT")
+
+x1
 
 dept_levels <- c("FIN", "HR", "IT", "MKT")
 
-new_dept_levels <- factor(x1, levels = dept_levels)
+dept <- factor(x1, levels = dept_levels)
 
-new_dept_levels
+dept
+
+summary(dept)
+```
+
+## Name of employees
+
+```{r}
+
+
+
+
+
 
 ```
 
@@ -329,7 +345,7 @@ new_dept_levels
 
 ```{r}
 
-dates <- c ("2020-01-15","2021-02-15","2019-03-03","2018-07-30","2020-04-12")
+hire_date <- c ("2020-01-15","2021-02-15","2019-03-03","2018-07-30","2020-04-12")
 
 dept <- c("FIN","HR","IT","MKT")
 
@@ -337,7 +353,7 @@ employee_name <- c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delo
 
 
 clean_df <- data.frame(
-  dates = c("2020-01-15","2021-02-15","2019-03-03","2018-07-30","2020-04-12"), 
+  hire_date = c("2020-01-15","2021-02-15","2019-03-03","2018-07-30","2020-04-12"), 
   dept = c("HR","FIN","HR","IT","MKT"), 
   employee_name = c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delon")
 )
