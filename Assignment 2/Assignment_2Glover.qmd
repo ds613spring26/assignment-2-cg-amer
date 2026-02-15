@@ -271,7 +271,7 @@ records
 
 ```
 
-## 
+## Parse into three separate variables
 
 ```{r}
 
@@ -293,19 +293,38 @@ separate_wider_delim(records,
 
 ```
 
-## Convert dept
+## Convert dates
 
 ```{r}
 
+ymd("2020-01-15")
 
 
+dmy("15/02/2021")
 
+mdy("March 3, 2019")
+
+ymd("2018/07/30")
+
+mdy("4-12-2020")
+```
+
+## Ordered factors
+
+```{r}
+
+x1 <- c("HR", "FIN", "IT", "MKT")
+
+dept_levels <- c("FIN", "HR", "IT", "MKT")
+
+new_dept_levels <- factor(x1, levels = dept_levels)
+
+new_dept_levels
 
 ```
 
-## Clean data frame
-
 ```{r}
+
 
 
 
