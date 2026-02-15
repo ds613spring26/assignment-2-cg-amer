@@ -355,7 +355,7 @@ name <- c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delon")
 
 clean_df <- data.frame(
   hire_date = c("2020-01-15","2021-02-15","2019-03-03","2018-07-30","2020-04-12"), 
-  dept = c("HR","FIN","HR","IT","MKT"), 
+  dept = c("HR","FIN","IT","HR","MKT"), 
   name = c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delon")
 )
 
@@ -378,7 +378,54 @@ steve_work
 d1 <- ymd("2021-02-15")
 d2 <- today()
 
+#How long has B. Smith worked?
 BSmith_work <- as.duration(d2-d1)
 
 BSmith_work
+
+
+#How long has Carlos M?
+
+d1 <- ymd("2019-03-03")
+d2 <- today()
+
+Carlos_work <- as.duration(d2-d1)
+
+Carlos_work
+
+#How long has D. Lee worked?
+
+d1 <- ymd("2018-07-30")
+d2 <- today()
+
+D_work <- as.duration(d2-d1)
+
+D_work
+
+#How long has Alain Delon worked?
+
+d1 <- ymd("2020-04-12")
+d2 <- today()
+
+Alain_work <- as.duration(d2-d1)
+
+Alain_work
 ```
+
+## Include new variable into refined data frame
+
+```{r}
+
+clean_df <- data.frame(
+  hire_date = c("2020-01-15","2021-02-15","2019-03-03","2018-07-30","2020-04-12"), 
+  dept = c("HR","FIN","IT","HR","MKT"), 
+  name = c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delon"),
+  years_worked = c("6.09", "5", "6.96", "7.55", "5.85")
+) -> clean_df2
+
+clean_df2
+
+
+```
+
+## 
