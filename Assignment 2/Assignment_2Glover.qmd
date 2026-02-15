@@ -335,10 +335,11 @@ summary(dept)
 ```{r}
 
 
+name <- c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delon")
 
+typeof(name)
 
-
-
+name
 ```
 
 ## Construct a data frame
@@ -349,13 +350,13 @@ hire_date <- c ("2020-01-15","2021-02-15","2019-03-03","2018-07-30","2020-04-12"
 
 dept <- c("FIN","HR","IT","MKT")
 
-employee_name <- c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delon")
+name <- c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delon")
 
 
 clean_df <- data.frame(
   hire_date = c("2020-01-15","2021-02-15","2019-03-03","2018-07-30","2020-04-12"), 
   dept = c("HR","FIN","HR","IT","MKT"), 
-  employee_name = c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delon")
+  name = c("Steve McQueen", "B.Smith", "Carlos M", "D. Lee", "Alain Delon")
 )
 
 clean_df
@@ -365,9 +366,19 @@ clean_df
 
 ```{r}
 
+#How long has Steve worked?
 
+d1 <- ymd("2020-01-15")
+d2 <- today()
 
+steve_work <-as.duration(d2-d1)
 
+steve_work
 
+d1 <- ymd("2021-02-15")
+d2 <- today()
 
+BSmith_work <- as.duration(d2-d1)
+
+BSmith_work
 ```
