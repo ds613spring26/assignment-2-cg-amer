@@ -189,16 +189,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="without-if-statement" class="level2">
 <h2 class="anchored" data-anchor-id="without-if-statement">Without if statement</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's start by establishing a pos_na2 variable for the if not statement. </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>pos_na2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">na.rm =</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">length</span>(x) <span class="sc">==</span> <span class="fu">length</span>(y))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">which</span>(<span class="fu">is.na</span>(x) <span class="sc">&amp;</span> <span class="fu">is.na</span>(y)))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>pos_na2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (x, y, na.rm = FALSE) 
+{
+    stopifnot(length(x) == length(y))
+    return(which(is.na(x) &amp; is.na(y)))
+}</code></pre>
+</div>
+</div>
+</section>
+<section id="pair-of-functions" class="level2">
+<h2 class="anchored" data-anchor-id="pair-of-functions">Pair of functions</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pos_na2</span>(<span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pos_na2</span>(<span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">5</span>, <span class="cn">NA</span>), <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pos_na2</span>(<span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>, <span class="cn">NA</span>), <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="cn">NA</span>, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 7</code></pre>
+</div>
+</div>
 </section>
 <section id="question-2" class="level2">
 <h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
 <p>Load the&nbsp;<code style="font-family: Monaco, Menlo, Consolas, &quot;Courier New&quot;, monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(242, 244, 244); border-color: rgb(232, 234, 236); padding: 0.125rem 0.25rem; color: rgb(199, 31, 35); font-variant-ligatures: normal; white-space-collapse: collapse;">wmata_ridership</code>&nbsp;data frame into R from&nbsp;<a href="https://dcgerard.github.io/stat_412_612/data/wmata_ridership.csv" class="uri external" target="_blank" rel="noreferrer noopener" style="color: rgb(14, 104, 179); font-family: LatoWeb, &quot;Lato Extended&quot;, Lato, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; white-space-collapse: collapse;">https://dcgerard.github.io/stat_412_612/data/wmata_ridership.csvLinks to an external site.</a>. For each month, calculate the proportion of rides made on a given day of the month. Then make box plots of ridership proportions by day of the week. But exclude any days from 2004 and 2005.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Read in the data properly.</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>wmata_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Folder Data/wmata_ridership.csv"</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wmata_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Read in the data properly.</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>wmata_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Folder Data/wmata_ridership.csv"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wmata_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        Date  Total
 1 2004-01-01 129000
@@ -208,28 +247,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 5 2004-01-05 564000
 6 2004-01-06 609000</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(<span class="st">"2004-01-01"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(<span class="st">"2004-01-01"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2004</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(<span class="st">"2004-01-01"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(<span class="st">"2004-01-01"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] Jan
 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wday</span>(<span class="st">"2004-01-01"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wday</span>(<span class="st">"2004-01-01"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] Thu
 Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>wmata_data<span class="sc">|&gt;</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(wmata_data, <span class="at">Year =</span> <span class="fu">year</span>(Date),</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Month =</span> <span class="fu">month</span>(Date),</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Wday =</span> <span class="fu">wday</span>(Date, <span class="at">label =</span> <span class="cn">TRUE</span>)) <span class="ot">-&gt;</span> wmata_data2</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>wmata_data2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>wmata_data<span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(wmata_data, <span class="at">Year =</span> <span class="fu">year</span>(Date),</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Month =</span> <span class="fu">month</span>(Date),</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Wday =</span> <span class="fu">wday</span>(Date, <span class="at">label =</span> <span class="cn">TRUE</span>)) <span class="ot">-&gt;</span> wmata_data2</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>wmata_data2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Date   Total Year Month Wday
 1    2004-01-01  129000 2004     1  Thu
@@ -5704,11 +5743,11 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>wmata_data2<span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(Year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2004</span>,<span class="dv">2005</span>))) <span class="ot">-&gt;</span> wmata_data2</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Updated</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>wmata_data2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>wmata_data2<span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(Year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2004</span>,<span class="dv">2005</span>))) <span class="ot">-&gt;</span> wmata_data2</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Updated</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>wmata_data2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Date   Total Year Month Wday
 1    2006-01-01  121000 2006     1  Sun
@@ -10451,37 +10490,38 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 4738 2018-12-21  487000 2018    12  Fri</code></pre>
 </div>
 </div>
+</section>
+<section id="proportion-calculation" class="level2">
+<h2 class="anchored" data-anchor-id="proportion-calculation">Proportion calculation</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>wmata_data2<span class="sc">|&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Month,Wday)<span class="sc">|&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proportion =</span> Total<span class="sc">/</span><span class="fu">sum</span>(Total))<span class="sc">|&gt;</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()<span class="ot">-&gt;</span> wmata_data2</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>wmata_data2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>wmata_data2<span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Month,Wday)<span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proportion =</span> Total<span class="sc">/</span><span class="fu">sum</span>(Total))<span class="sc">|&gt;</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()<span class="ot">-&gt;</span> wmata_data2</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wmata_data2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4,738 × 6
-   Date        Total  Year Month Wday  Proportion
-   &lt;chr&gt;       &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;      &lt;dbl&gt;
- 1 2006-01-01 121000  2006     1 Sun      0.0120 
- 2 2006-01-02 157000  2006     1 Mon      0.00524
- 3 2006-01-03 583000  2006     1 Tue      0.0156 
- 4 2006-01-04 626000  2006     1 Wed      0.0166 
- 5 2006-01-05 638000  2006     1 Thu      0.0170 
- 6 2006-01-06 636000  2006     1 Fri      0.0177 
- 7 2006-01-07 224000  2006     1 Sat      0.0144 
- 8 2006-01-08 149000  2006     1 Sun      0.0148 
- 9 2006-01-09 646000  2006     1 Mon      0.0216 
-10 2006-01-10 686000  2006     1 Tue      0.0183 
-# ℹ 4,728 more rows</code></pre>
+<pre><code># A tibble: 6 × 6
+  Date        Total  Year Month Wday  Proportion
+  &lt;chr&gt;       &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;      &lt;dbl&gt;
+1 2006-01-01 121000  2006     1 Sun      0.0120 
+2 2006-01-02 157000  2006     1 Mon      0.00524
+3 2006-01-03 583000  2006     1 Tue      0.0156 
+4 2006-01-04 626000  2006     1 Wed      0.0166 
+5 2006-01-05 638000  2006     1 Thu      0.0170 
+6 2006-01-06 636000  2006     1 Fri      0.0177 </code></pre>
 </div>
 </div>
+</section>
+<section id="boxplot-for-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="boxplot-for-proportions">Boxplot for proportions</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(wmata_data2, <span class="fu">aes</span>(<span class="at">x =</span> Wday, <span class="at">y =</span> Proportion)) <span class="sc">+</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(wmata_data2, <span class="fu">aes</span>(<span class="at">x =</span> Wday, <span class="at">y =</span> Proportion)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Assignment_2Glover_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Assignment_2Glover_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -10489,40 +10529,32 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section id="question-3" class="level2">
 <h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+</section>
+<section id="subset-by-index" class="level2">
+<h2 class="anchored" data-anchor-id="subset-by-index">Subset by index</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(V) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"b"</span>, <span class="st">"l"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>, <span class="st">"be"</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>V[<span class="fu">c</span>(<span class="st">"b"</span>, <span class="st">"d"</span>, <span class="st">"be"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(V) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"b"</span>, <span class="st">"l"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>, <span class="st">"be"</span>)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>V[<span class="fu">c</span>(<span class="st">"b"</span>, <span class="st">"d"</span>, <span class="st">"be"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         b          d         be 
    "Bears" "Dolphins"  "Bengals" </code></pre>
 </div>
 </div>
 </section>
-<section id="subsetting-with-for-loop" class="level2">
-<h2 class="anchored" data-anchor-id="subsetting-with-for-loop">Subsetting with for loop</h2>
+<section id="subsetting-for-loop" class="level2">
+<h2 class="anchored" data-anchor-id="subsetting-for-loop">Subsetting for loop</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>V</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Bears"    "Lions"    "Dolphins" "Eagles"   "Bengals" </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(V[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Bears"</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Subsetting for loop</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)) {</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (V[i])</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Subsetting for loop</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)) {</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (V[i])</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Bears"
 [1] "Dolphins"
@@ -10533,10 +10565,10 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="subsetting-with-positive-indices" class="level2">
 <h2 class="anchored" data-anchor-id="subsetting-with-positive-indices">Subsetting with positive indices</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>V[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>V[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Bears"    "Dolphins" "Bengals" </code></pre>
 </div>
@@ -10545,9 +10577,9 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="subsetting-using-negative-indices" class="level2">
 <h2 class="anchored" data-anchor-id="subsetting-using-negative-indices">Subsetting using negative indices</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>V[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>V[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Bears"    "Dolphins" "Bengals" </code></pre>
 </div>
@@ -10556,11 +10588,23 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="subsetting-using-logical-indexing" class="level2">
 <h2 class="anchored" data-anchor-id="subsetting-using-logical-indexing">Subsetting using logical indexing</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>V[<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>V[<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Bears"    "Dolphins" "Bengals" </code></pre>
+</div>
+</div>
+</section>
+<section id="subsetting-by-names" class="level2">
+<h2 class="anchored" data-anchor-id="subsetting-by-names">Subsetting by names</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(V) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Lions"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Eagles"</span>, <span class="st">"Bengals"</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>V[<span class="fu">c</span>(<span class="st">"Bears"</span>, <span class="st">"Dolphins"</span>, <span class="st">"Bengals"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Bears   Dolphins    Bengals 
+   "Bears" "Dolphins"  "Bengals" </code></pre>
 </div>
 </div>
 </section>
@@ -10570,14 +10614,14 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="parse" class="level2">
 <h2 class="anchored" data-anchor-id="parse">Parse</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>records <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Steve McQueen | 2020-01-15 | HR"</span>,</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"B. Smith | 15/02/2021 | FIN"</span>,</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Carlos M | March 3, 2019 | IT"</span>,</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"D. Lee | 2018/07/30 | HR"</span>,</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Alain Delon | 04-12-2020 | MKT"</span></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>records</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>records <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Steve McQueen | 2020-01-15 | HR"</span>,</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"B. Smith | 15/02/2021 | FIN"</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Carlos M | March 3, 2019 | IT"</span>,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"D. Lee | 2018/07/30 | HR"</span>,</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Alain Delon | 04-12-2020 | MKT"</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>records</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Steve McQueen | 2020-01-15 | HR" "B. Smith | 15/02/2021 | FIN"    
 [3] "Carlos M | March 3, 2019 | IT"   "D. Lee | 2018/07/30 | HR"       
@@ -10588,16 +10632,16 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="parse-into-three-separate-variables" class="level2">
 <h2 class="anchored" data-anchor-id="parse-into-three-separate-variables">Parse into three separate variables</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>HRData <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">records =</span> <span class="fu">c</span>( <span class="st">"Steve McQueen | 2020-01-15 | HR"</span>,</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"B. Smith | 15/02/2021 | FIN"</span>,</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Carlos M | March 3, 2019 | IT"</span>,</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"D. Lee | 2018/07/30 | HR"</span>,</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Alain Delon | 04-12-2020 | MKT"</span>))</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>                 </span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>HRData <span class="sc">|&gt;</span>              </span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">separate_wider_delim</span>(records,</span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"name"</span>, <span class="st">"hire_date"</span>, <span class="st">"dept"</span>),</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">delim =</span> <span class="st">"|"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>HRData <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">records =</span> <span class="fu">c</span>( <span class="st">"Steve McQueen | 2020-01-15 | HR"</span>,</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"B. Smith | 15/02/2021 | FIN"</span>,</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Carlos M | March 3, 2019 | IT"</span>,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"D. Lee | 2018/07/30 | HR"</span>,</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Alain Delon | 04-12-2020 | MKT"</span>))</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>                 </span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>HRData <span class="sc">|&gt;</span>              </span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="fu">separate_wider_delim</span>(records,</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"name"</span>, <span class="st">"hire_date"</span>, <span class="st">"dept"</span>),</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">delim =</span> <span class="st">"|"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   name             hire_date         dept  
@@ -10613,29 +10657,29 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="convert-dates" class="level2">
 <h2 class="anchored" data-anchor-id="convert-dates">Convert dates</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">"2020-01-15"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">"2020-01-15"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2020-01-15"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dmy</span>(<span class="st">"15/02/2021"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dmy</span>(<span class="st">"15/02/2021"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-15"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span>(<span class="st">"March 3, 2019"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span>(<span class="st">"March 3, 2019"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2019-03-03"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">"2018/07/30"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">"2018/07/30"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2018-07-30"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span>(<span class="st">"4-12-2020"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span>(<span class="st">"4-12-2020"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2020-04-12"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>hire_date <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"2020-01-15"</span>, <span class="st">"2021-02-15"</span>, <span class="st">"2019-03-03"</span>,<span class="st">"2018-07-30"</span>, <span class="st">"2020-04-12"</span>)</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>hire_date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>hire_date <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"2020-01-15"</span>, <span class="st">"2021-02-15"</span>, <span class="st">"2019-03-03"</span>,<span class="st">"2018-07-30"</span>, <span class="st">"2020-04-12"</span>)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>hire_date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2020-01-15" "2021-02-15" "2019-03-03" "2018-07-30" "2020-04-12"</code></pre>
 </div>
@@ -10644,22 +10688,22 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="ordered-factors" class="level2">
 <h2 class="anchored" data-anchor-id="ordered-factors">Ordered factors</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"HR"</span>, <span class="st">"FIN"</span>, <span class="st">"IT"</span>, <span class="st">"HR"</span>, <span class="st">"MKT"</span>)</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>x1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"HR"</span>, <span class="st">"FIN"</span>, <span class="st">"IT"</span>, <span class="st">"HR"</span>, <span class="st">"MKT"</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>x1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "HR"  "FIN" "IT"  "HR"  "MKT"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>dept_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"FIN"</span>, <span class="st">"HR"</span>, <span class="st">"IT"</span>, <span class="st">"MKT"</span>)</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>dept <span class="ot">&lt;-</span> <span class="fu">factor</span>(x1, <span class="at">levels =</span> dept_levels)</span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>dept</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>dept_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"FIN"</span>, <span class="st">"HR"</span>, <span class="st">"IT"</span>, <span class="st">"MKT"</span>)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>dept <span class="ot">&lt;-</span> <span class="fu">factor</span>(x1, <span class="at">levels =</span> dept_levels)</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>dept</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] HR  FIN IT  HR  MKT
 Levels: FIN HR IT MKT</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dept)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dept)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>FIN  HR  IT MKT 
   1   2   1   1 </code></pre>
@@ -10669,13 +10713,13 @@ Levels: FIN HR IT MKT</code></pre>
 <section id="name-of-employees" class="level2">
 <h2 class="anchored" data-anchor-id="name-of-employees">Name of employees</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Steve McQueen"</span>, <span class="st">"B.Smith"</span>, <span class="st">"Carlos M"</span>, <span class="st">"D. Lee"</span>, <span class="st">"Alain Delon"</span>)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Steve McQueen"</span>, <span class="st">"B.Smith"</span>, <span class="st">"Carlos M"</span>, <span class="st">"D. Lee"</span>, <span class="st">"Alain Delon"</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Steve McQueen" "B.Smith"       "Carlos M"      "D. Lee"       
 [5] "Alain Delon"  </code></pre>
@@ -10685,20 +10729,20 @@ Levels: FIN HR IT MKT</code></pre>
 <section id="construct-a-data-frame" class="level2">
 <h2 class="anchored" data-anchor-id="construct-a-data-frame">Construct a data frame</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>hire_date <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="st">"2020-01-15"</span>,<span class="st">"2021-02-15"</span>,<span class="st">"2019-03-03"</span>,<span class="st">"2018-07-30"</span>,<span class="st">"2020-04-12"</span>)</span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>dept <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"FIN"</span>,<span class="st">"HR"</span>,<span class="st">"IT"</span>,<span class="st">"MKT"</span>)</span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Steve McQueen"</span>, <span class="st">"B.Smith"</span>, <span class="st">"Carlos M"</span>, <span class="st">"D. Lee"</span>, <span class="st">"Alain Delon"</span>)</span>
-<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>clean_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">hire_date =</span> <span class="fu">c</span>(<span class="st">"2020-01-15"</span>,<span class="st">"2021-02-15"</span>,<span class="st">"2019-03-03"</span>,<span class="st">"2018-07-30"</span>,<span class="st">"2020-04-12"</span>), </span>
-<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dept =</span> <span class="fu">c</span>(<span class="st">"HR"</span>,<span class="st">"FIN"</span>,<span class="st">"IT"</span>,<span class="st">"HR"</span>,<span class="st">"MKT"</span>), </span>
-<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Steve McQueen"</span>, <span class="st">"B.Smith"</span>, <span class="st">"Carlos M"</span>, <span class="st">"D. Lee"</span>, <span class="st">"Alain Delon"</span>)</span>
-<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a>clean_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>hire_date <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="st">"2020-01-15"</span>,<span class="st">"2021-02-15"</span>,<span class="st">"2019-03-03"</span>,<span class="st">"2018-07-30"</span>,<span class="st">"2020-04-12"</span>)</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>dept <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"FIN"</span>,<span class="st">"HR"</span>,<span class="st">"IT"</span>,<span class="st">"MKT"</span>)</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Steve McQueen"</span>, <span class="st">"B.Smith"</span>, <span class="st">"Carlos M"</span>, <span class="st">"D. Lee"</span>, <span class="st">"Alain Delon"</span>)</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>clean_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">hire_date =</span> <span class="fu">c</span>(<span class="st">"2020-01-15"</span>,<span class="st">"2021-02-15"</span>,<span class="st">"2019-03-03"</span>,<span class="st">"2018-07-30"</span>,<span class="st">"2020-04-12"</span>), </span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dept =</span> <span class="fu">c</span>(<span class="st">"HR"</span>,<span class="st">"FIN"</span>,<span class="st">"IT"</span>,<span class="st">"HR"</span>,<span class="st">"MKT"</span>), </span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Steve McQueen"</span>, <span class="st">"B.Smith"</span>, <span class="st">"Carlos M"</span>, <span class="st">"D. Lee"</span>, <span class="st">"Alain Delon"</span>)</span>
+<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a>clean_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   hire_date dept          name
 1 2020-01-15   HR Steve McQueen
@@ -10712,57 +10756,57 @@ Levels: FIN HR IT MKT</code></pre>
 <section id="add-a-new-variable-years-worked" class="level2">
 <h2 class="anchored" data-anchor-id="add-a-new-variable-years-worked">Add a new variable: years worked</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How long has Steve worked?</span></span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2020-01-15"</span>)</span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>steve_work <span class="ot">&lt;-</span><span class="fu">as.duration</span>(d2<span class="sc">-</span>d1)</span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>steve_work</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How long has Steve worked?</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2020-01-15"</span>)</span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>steve_work <span class="ot">&lt;-</span><span class="fu">as.duration</span>(d2<span class="sc">-</span>d1)</span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>steve_work</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "192067200s (~6.09 years)"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2021-02-15"</span>)</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="co">#How long has B. Smith worked?</span></span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>BSmith_work <span class="ot">&lt;-</span> <span class="fu">as.duration</span>(d2<span class="sc">-</span>d1)</span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>BSmith_work</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2021-02-15"</span>)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="co">#How long has B. Smith worked?</span></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>BSmith_work <span class="ot">&lt;-</span> <span class="fu">as.duration</span>(d2<span class="sc">-</span>d1)</span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>BSmith_work</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "157766400s (~5 years)"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How long has Carlos M?</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2019-03-03"</span>)</span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
-<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>Carlos_work <span class="ot">&lt;-</span> <span class="fu">as.duration</span>(d2<span class="sc">-</span>d1)</span>
-<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>Carlos_work</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How long has Carlos M?</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2019-03-03"</span>)</span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>Carlos_work <span class="ot">&lt;-</span> <span class="fu">as.duration</span>(d2<span class="sc">-</span>d1)</span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>Carlos_work</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "219542400s (~6.96 years)"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How long has D. Lee worked?</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2018-07-30"</span>)</span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>D_work <span class="ot">&lt;-</span> <span class="fu">as.duration</span>(d2<span class="sc">-</span>d1)</span>
-<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>D_work</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How long has D. Lee worked?</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2018-07-30"</span>)</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>D_work <span class="ot">&lt;-</span> <span class="fu">as.duration</span>(d2<span class="sc">-</span>d1)</span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>D_work</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "238204800s (~7.55 years)"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How long has Alain Delon worked?</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2020-04-12"</span>)</span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>Alain_work <span class="ot">&lt;-</span> <span class="fu">as.duration</span>(d2<span class="sc">-</span>d1)</span>
-<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>Alain_work</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How long has Alain Delon worked?</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2020-04-12"</span>)</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>Alain_work <span class="ot">&lt;-</span> <span class="fu">as.duration</span>(d2<span class="sc">-</span>d1)</span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>Alain_work</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "184464000s (~5.85 years)"</code></pre>
 </div>
@@ -10771,14 +10815,14 @@ Levels: FIN HR IT MKT</code></pre>
 <section id="include-new-variable-into-refined-data-frame" class="level2">
 <h2 class="anchored" data-anchor-id="include-new-variable-into-refined-data-frame">Include new variable into refined data frame</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">hire_date =</span> <span class="fu">c</span>(<span class="st">"2020-01-15"</span>,<span class="st">"2021-02-15"</span>,<span class="st">"2019-03-03"</span>,<span class="st">"2018-07-30"</span>,<span class="st">"2020-04-12"</span>), </span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">dept =</span> <span class="fu">c</span>(<span class="st">"HR"</span>,<span class="st">"FIN"</span>,<span class="st">"IT"</span>,<span class="st">"HR"</span>,<span class="st">"MKT"</span>), </span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Steve McQueen"</span>, <span class="st">"B.Smith"</span>, <span class="st">"Carlos M"</span>, <span class="st">"D. Lee"</span>, <span class="st">"Alain Delon"</span>),</span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">years_worked =</span> <span class="fu">c</span>(<span class="st">"6.09"</span>, <span class="st">"5"</span>, <span class="st">"6.96"</span>, <span class="st">"7.55"</span>, <span class="st">"5.85"</span>)</span>
-<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>) <span class="ot">-&gt;</span> clean_df2</span>
-<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>clean_df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>clean_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">hire_date =</span> <span class="fu">c</span>(<span class="st">"2020-01-15"</span>,<span class="st">"2021-02-15"</span>,<span class="st">"2019-03-03"</span>,<span class="st">"2018-07-30"</span>,<span class="st">"2020-04-12"</span>), </span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">dept =</span> <span class="fu">c</span>(<span class="st">"HR"</span>,<span class="st">"FIN"</span>,<span class="st">"IT"</span>,<span class="st">"HR"</span>,<span class="st">"MKT"</span>), </span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Steve McQueen"</span>, <span class="st">"B.Smith"</span>, <span class="st">"Carlos M"</span>, <span class="st">"D. Lee"</span>, <span class="st">"Alain Delon"</span>),</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">years_worked =</span> <span class="fu">c</span>(<span class="st">"6.09"</span>, <span class="st">"5"</span>, <span class="st">"6.96"</span>, <span class="st">"7.55"</span>, <span class="st">"5.85"</span>)</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>) <span class="ot">-&gt;</span> clean_df2</span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>clean_df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   hire_date dept          name years_worked
 1 2020-01-15   HR Steve McQueen         6.09

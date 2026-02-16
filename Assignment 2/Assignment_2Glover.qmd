@@ -100,7 +100,30 @@ pos_na(g,h)
 
 ```{r}
 
+#Let's start by establishing a pos_na2 variable for the if not statement. 
 
+
+pos_na2 <- function(x, y, na.rm = FALSE) {
+  stopifnot(length(x) == length(y))
+  return(which(is.na(x) & is.na(y)))
+}
+
+pos_na2
+
+
+```
+
+## Pair of functions
+
+```{r}
+pos_na2(c(NA, NA, 2), c(NA, NA, 2))
+
+
+```
+
+```{r}
+
+pos_na2(c(NA, 5, NA), c(NA, NA, NA))
 
 
 
@@ -108,7 +131,7 @@ pos_na(g,h)
 
 ```{r}
 
-
+pos_na2(c(NA, NA, NA, 2, NA, 4, NA), c(NA, NA, 2, 4, 4, NA, NA))
 
 
 
@@ -160,7 +183,10 @@ wmata_data2|>
 #Updated
 wmata_data2
 
+
 ```
+
+## Proportion calculation
 
 ```{r}
 
@@ -169,9 +195,11 @@ wmata_data2|>
   mutate(Proportion = Total/sum(Total))|>
   ungroup()-> wmata_data2
 
-wmata_data2
+head(wmata_data2)
 
 ```
+
+## Boxplot for proportions
 
 ```{r}
 
@@ -184,6 +212,8 @@ ggplot(wmata_data2, aes(x = Wday, y = Proportion)) +
 
 ## Question 3
 
+## Subset by index
+
 ```{r}
 
 V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
@@ -195,18 +225,7 @@ V[c("b", "d", "be")]
 
 ```
 
-## Subsetting with for loop
-
-```{r}
-
-V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
-V
-
-print(V[1])
-
-
-
-```
+## Subsetting for loop
 
 ```{r}
 
@@ -264,6 +283,16 @@ V[c(TRUE, FALSE, TRUE, FALSE, TRUE)]
 
 
 
+```
+
+## Subsetting by names
+
+```{r}
+
+
+names(V) <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
+
+V[c("Bears", "Dolphins", "Bengals")]
 ```
 
 ## Question 4
