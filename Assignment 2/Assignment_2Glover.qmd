@@ -1,4 +1,13 @@
 ---
+---
+---
+
+---
+
+---
+
+---
+author: Clesean Glover
 title: "Assignment #2"
 format: html
 editor: visual
@@ -6,12 +15,6 @@ editor: visual
 
 ```{r}
 
-{r setup, include=FALSE}
-knitr::opts_chunk$set(echo       = TRUE, 
-                      fig.height = 3, 
-                      fig.width  = 6,
-                      fig.align  = "center")
-ggplot2::theme_set(ggplot2::theme_bw())
 
 
 
@@ -41,6 +44,7 @@ if(length(a) == length(b))
 else {print("The vectors are not the same length.")}
 }
 
+pos_na
 
 ```
 
@@ -89,6 +93,16 @@ g <- c(1, NA, NA, 2, NA, 4, NA)
 h <- c(NA, -5, 2, 4, 4, NA, 11)
 
 pos_na(g,h)
+
+```
+
+## Without if statement
+
+```{r}
+
+
+
+
 
 ```
 
